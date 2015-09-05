@@ -1,0 +1,11 @@
+#cmakedefine HAVE_CLOCK_GETTIME 1
+
+#cmakedefine HAVE_JACK 1
+#cmakedefine HAVE_VLC 1
+#cmakedefine HAVE_MAGICWAND 1
+
+#cmakedefine VERSION @VERSION@
+#cmakedefine GITVERSION @GITVERSION@
+#cmakedefine PACKAGE @PACKAGE@
+#cmakedefine PACKAGE_NAME @PACKAGE_NAME@
+
