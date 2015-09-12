@@ -285,7 +285,7 @@ list(APPEND SYS_SRC
     )
 
 # libfdk_aac
-list(APPEND libfdk_aac_SOURCES
+list(APPEND libfdk_aac_dabplus_SOURCES
     ${AACDEC_SRC}
     ${AACENC_SRC}
     ${MPEGTPDEC_SRC}
@@ -297,7 +297,7 @@ list(APPEND libfdk_aac_SOURCES
     ${SYS_SRC}
     )
 
-list(APPEND libfdk_aac_include_HEADERS
+list(APPEND libfdk_aac_dabplus_include_HEADERS
     libSYS/include/machine_type.h
     libSYS/include/genericStds.h
     libSYS/include/FDK_audio.h
@@ -309,29 +309,29 @@ list(APPEND libfdk_aac_include_HEADERS
 ################################################################################
 # Generate pkg-config file
 ################################################################################
-foreach(inc ${LIBFDK-AAC_INCLUDE_DIR})
-    list(APPEND LIBFDK-AAC_PC_CFLAGS "-I${inc}")
+foreach(inc ${LIBFDK-AAC-DABPLUS_INCLUDE_DIR})
+    list(APPEND LIBFDK-AAC-DABPLUS_PC_CFLAGS "-I${inc}")
 endforeach()
 
-foreach(lib ${LIBFDK-AAC_LIBRARY_DIRS})
-    list(APPEND LIBFDK-AAC_PC_PRIV_LIBS "-L${lib}")
+foreach(lib ${LIBFDK-AAC-DABPLUS_LIBRARY_DIRS})
+    list(APPEND LIBFDK-AAC-DABPLUS_PC_PRIV_LIBS "-L${lib}")
 endforeach()
 
-set(LIBFDK-AAC_PC_PREFIX ${CMAKE_INSTALL_PREFIX})
-set(LIBFDK-AAC_PC_EXEC_PREFIX \${prefix})
-set(LIBFDK-AAC_PC_LIBDIR \${exec_prefix}/${LIB_INSTALL_DIR})
-set(LIBFDK-AAC_PC_INCLUDEDIR \${prefix}/include/fdk-aac)
-set(LIBFDK-AAC_PC_VERSION ${VERSION})
-set(LIBFDK-AAC_PC_LIBS "-lfdk-aac")
+set(LIBFDK-AAC-DABPLUS_PC_PREFIX ${CMAKE_INSTALL_PREFIX})
+set(LIBFDK-AAC-DABPLUS_PC_EXEC_PREFIX \${prefix})
+set(LIBFDK-AAC-DABPLUS_PC_LIBDIR \${exec_prefix}/${LIB_INSTALL_DIR})
+set(LIBFDK-AAC-DABPLUS_PC_INCLUDEDIR \${prefix}/include/fdk-aac-dabplus)
+set(LIBFDK-AAC-DABPLUS_PC_VERSION ${VERSION})
+set(LIBFDK-AAC-DABPLUS_PC_LIBS "-lfdk-aac-dabplus")
 
 # Use space-delimiter in the .pc file, rather than CMake's semicolon separator
-string(REPLACE ";" " " LIBFDK-AAC_PC_CFLAGS "${LIBFDK-AAC_PC_CFLAGS}")
-string(REPLACE ";" " " LIBFDK-AAC_PC_LIBS "${LIBFDK-AAC_PC_LIBS}")
+string(REPLACE ";" " " LIBFDK-AAC-DABPLUS_PC_CFLAGS "${LIBFDK-AAC-DABPLUS_PC_CFLAGS}")
+string(REPLACE ";" " " LIBFDK-AAC-DABPLUS_PC_LIBS "${LIBFDK-AAC-DABPLUS_PC_LIBS}")
 
 # Unset these to avoid hard-coded paths in a cross-environment
 if(CMAKE_CROSSCOMPILING)
-    unset(LIBFDK-AAC_PC_CFLAGS)
-    unset(LIBFDK-AAC_PC_LIBS)
+    unset(LIBFDK-AAC-DABPLUS_PC_CFLAGS)
+    unset(LIBFDK-AAC-DABPLUS_PC_LIBS)
 endif()
 
 configure_file(
@@ -349,18 +349,18 @@ install(
 ########################################################################
 # Setup apps and libraries
 ########################################################################
-add_library(libfdk_aac_shared SHARED ${libfdk_aac_SOURCES})
-set_target_properties(libfdk_aac_shared PROPERTIES OUTPUT_NAME fdk-aac)
-set_target_properties(libfdk_aac_shared PROPERTIES SOVERSION ${SOVERSION})
+add_library(libfdk_aac_dabplus_shared SHARED ${libfdk_aac_dabplus_SOURCES})
+set_target_properties(libfdk_aac_dabplus_shared PROPERTIES OUTPUT_NAME fdk-aac-dabplus)
+set_target_properties(libfdk_aac_dabplus_shared PROPERTIES SOVERSION ${SOVERSION})
 
 # FIXME - properly export symbols
-# set_target_properties(libfdk_aac_shared PROPERTIES LINK_FLAGS "-export-symbols ${CMAKE_SOURCE_DIR}/fdk-aac.sym")
+# set_target_properties(libfdk_aac_dabplus_shared PROPERTIES LINK_FLAGS "-export-symbols ${CMAKE_SOURCE_DIR}/fdk-aac.sym")
 
-install(TARGETS libfdk_aac_shared
-    DESTINATION lib)
+install(TARGETS libfdk_aac_dabplus_shared
+    DESTINATION ${LIB_INSTALL_DIR})
 
-install(FILES ${libfdk_aac_include_HEADERS}
-    DESTINATION include/fdk-aac)
+install(FILES ${libfdk_aac_dabplus_include_HEADERS}
+    DESTINATION include/fdk-aac-dabplus)
 
 
 ## mot-encoder
